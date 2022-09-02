@@ -1,7 +1,9 @@
 import sqlite3
 from sqlite3 import Error
 import json
+from venv import create
 import requests
+from os.path import exists
 
 BASE_URL = "https://www.bungie.net/Platform"
 
@@ -67,7 +69,7 @@ def printEquippedItems(mbmrType, mbmrId, database):
     
     manifest = create_connection(database)
     equippedList = listEquippedItems(mbmrType, mbmrId)
-
+    downloadItemIcons(equippedList, database)
 
     TABLE = "DestinyCollectibleDefinition"
     for id in equippedList:
@@ -79,3 +81,27 @@ def printEquippedItems(mbmrType, mbmrId, database):
         for row in rows:
             jsonRow = json.loads(row[1])
             print(jsonRow['displayProperties']['name'])
+
+
+def downloadItemIcons(itemIds, database):
+    manifest = create_connection(database)
+    TABLE = "DestinyCollectibleDefinition"
+
+    for id in itemIds:
+
+        if exists(f"appTesting/images/{id}.png"):
+            continue
+
+        cur = manifest.cursor()
+        cur.execute(f"SELECT * FROM {TABLE} WHERE json LIKE '%{id}%'")
+
+        rows = cur.fetchall()
+        for row in rows:
+            jsonRow = json.loads(row[1])
+            if jsonRow['displayProperties']['hasIcon']:
+                link = jsonRow['displayProperties']['icon']
+                URL = f"https://www.bungie.net{link}"
+                response = requests.get(URL)
+                open(f"appTesting/images/{id}.png", "wb").write(response.content)
+                print(id)
+

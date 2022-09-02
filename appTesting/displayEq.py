@@ -54,7 +54,6 @@ class App(Tk):
         login_button['font'] = font.Font(family='Arial', size=15, weight='bold')
         login_button['command'] = lambda: dest.printEquippedItems(str(username_entry.get()), str(password_entry.get()), db)
 
-
 if __name__ == "__main__":
     app=App()
     app.mainloop()
