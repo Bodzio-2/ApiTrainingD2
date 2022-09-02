@@ -23,17 +23,21 @@ query_params_LinkedMembership = {
     "getAllMemberships": 'true'
 }
 
-#getLinkedProfiles = requests.get(f"{BASE_URL}/Destiny2/{membershipType}/Profile/{membershipId}/LinkedProfiles/", headers=headers, params=query_params_LinkedMembership)
-#print (getLinkedProfiles.json())
+getLinkedProfiles = requests.get(f"{BASE_URL}/Destiny2/{membershipType}/Profile/{membershipId}/LinkedProfiles/", headers=headers, params=query_params_LinkedMembership)
+print (getLinkedProfiles.json())
+
+with open(f'{membershipId}.json', 'w') as json_file:
+    json.dump(getLinkedProfiles.json(), json_file)
+
 query_params_Components = {
     "components": '205'
 }
 
 
-getProfile = requests.get(f"{BASE_URL}/Destiny2/{destinyMembershipType}/Profile/{destinyMembershipId}/", headers=headers, params=query_params_Components)
+#getProfile = requests.get(f"{BASE_URL}/Destiny2/{destinyMembershipType}/Profile/{destinyMembershipId}/", headers=headers, params=query_params_Components)
 
-with open(f'{destinyMembershipId}.json', 'w') as json_file:
-    json.dump(getProfile.json(), json_file)
+#with open(f'{destinyMembershipId}.json', 'w') as json_file:
+#    json.dump(getProfile.json(), json_file)
 
 #getManifest = requests.get(f"{BASE_URL}/Destiny2/Manifest/", headers=headers)
 
