@@ -6,6 +6,6 @@ URL = "https://www.bungie.net/common/destiny2_content/icons/DestinyDamageTypeDef
 response = requests.get(URL)
 open("image.png", "wb").write(response.content)
 
-im = Image.open('image.png')
+im = Image.open('appTesting/images/58945355.png')
 
 im.show()

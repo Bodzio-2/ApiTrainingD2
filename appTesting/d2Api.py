@@ -71,6 +71,8 @@ def printEquippedItems(mbmrType, mbmrId, database):
     equippedList = listEquippedItems(mbmrType, mbmrId)
     downloadItemIcons(equippedList, database)
 
+    imgPaths = []
+
     TABLE = "DestinyCollectibleDefinition"
     for id in equippedList:
         cur = manifest.cursor()
@@ -81,6 +83,12 @@ def printEquippedItems(mbmrType, mbmrId, database):
         for row in rows:
             jsonRow = json.loads(row[1])
             print(jsonRow['displayProperties']['name'])
+            if jsonRow['displayProperties']['hasIcon']:
+                imgPaths.append(f"appTesting/images/{id}.png")
+            else:
+                imgPaths.append(f"appTesting/images/unknown.png")
+    
+    return imgPaths
 
 
 def downloadItemIcons(itemIds, database):
