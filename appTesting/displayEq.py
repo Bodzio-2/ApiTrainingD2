@@ -59,7 +59,6 @@ class App(Tk):
 
 def showEquipment(memberType, memberId, app):
         equipmentImgs = dest.printEquippedItems(memberType, memberId, db)
-        #equipmentImgs = ["appTesting/images/58945355.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png", "appTesting/images/138282166.png"] 
         result = eqInfo(equipmentImgs)
         result.mainloop()
 
